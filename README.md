@@ -73,14 +73,31 @@ Plots are written to `images/`.
 
 **Method:** baseline logistic regression vs ε-calibrated DP-style logistic regression (objective-perturbation / coefficient noise demo) across ε ∈ {0.1 … 50}; SHIELD production target **ε ≈ 1.0**. Swap in production DP-SGD / `diffprivlib` when deploying.
 
-**Outputs**
+**Results**
 
-| File | Meaning |
-|---|---|
-| `images/shield_privacy_utility.png` | Privacy–utility trade-off |
-| `images/shield_comparison_accuracy.png` | Churn vs fraud under DP |
-| `images/shield_shap_*_global.png` | Global feature drivers |
-| `images/shield_shap_*_customer.png` | Per-customer top drivers (appeal/reason-code fuel) |
+Privacy–utility trade-off (lower ε = stronger privacy; red line = SHIELD target ε≈1.0):
+
+![Privacy–utility trade-off](images/shield_privacy_utility.png)
+
+Churn vs fraud accuracy across privacy budgets:
+
+![Accuracy comparison](images/shield_comparison_accuracy.png)
+
+SHAP global drivers — churn:
+
+![SHAP churn global](images/shield_shap_churn_global.png)
+
+SHAP per-customer reason drivers — churn (feeds customer reason codes / appeals):
+
+![SHAP churn customer](images/shield_shap_churn_customer.png)
+
+SHAP global drivers — fraud:
+
+![SHAP fraud global](images/shield_shap_fraud_global.png)
+
+SHAP per-customer reason drivers — fraud:
+
+![SHAP fraud customer](images/shield_shap_fraud_customer.png)
 
 > Datasets: synthetic telco/fraud-style data by default (always runs). Drop CSVs into `data/` to use your own.
 
@@ -98,8 +115,17 @@ User query
 
 **Upgrades vs keyword-only filters:** behaviour heuristics, session anomaly signals, explicit **human handoff** messaging (dial 121 / “agent”), PDPA-aware KB snippets (marketing opt-out, children’s rule, appeal path).
 
-**Outputs:** `shield_pipeline.png`, `shield_pii_redaction.png`, `shield_rag_test_results.png`
+**Pipeline**
 
+![SHIELD Hardened RAG pipeline](images/shield_pipeline.png)
+
+**PII redaction (BD NID / phone)**
+
+![PII redaction before/after](images/shield_pii_redaction.png)
+
+**Test results** — legitimate answers vs injection/anomaly blocks:
+
+![RAG test results](images/shield_rag_test_results.png)
 ---
 
 ## OWASP LLM Top 10 & ATLAS alignment (priority)
