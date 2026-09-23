@@ -8,7 +8,7 @@
 
 | Layer | What SHIELD delivers |
 |---|---|
-| **Strategy** | 1-page concept paper + V5 target architecture (children, customer trust, DPO, third parties) |
+| **Strategy** | 1-page concept paper + proposed target architecture (children, customer trust, DPO, third parties) |
 | **Demo A** | Differential Privacy + SHAP for churn & fraud (ε≈1.0 operating point + customer reason drivers) |
 | **Demo B** | Hardened RAG support assistant: BD PII redaction → behaviour+pattern defence → anomaly guard → retrieve / human review |
 
@@ -35,7 +35,7 @@ SHIELD-Framework/
 ├── requirements.txt
 ├── LICENSE
 ├── docs/
-│   ├── SHIELD_V5_Architecture.md
+│   ├── SHIELD_Architecture.md
 │   └── TeamNullX_ConceptPaper.pdf      # competition 1-pager (rename team if needed)
 ├── demos/
 │   ├── demo_a_dp_shap.py               # DP privacy–utility + SHAP
@@ -142,9 +142,9 @@ Also referenced in architecture: **MITRE ATLAS** adversarial ML testing alongsid
 
 ---
 
-## SHIELD V5 — Proposed target architecture (summary)
+## SHIELD — Proposed target architecture (summary)
 
-Full detail: [`docs/SHIELD_V5_Architecture.md`](docs/SHIELD_V5_Architecture.md)
+Full detail: [`docs/SHIELD_Architecture.md`](docs/SHIELD_Architecture.md)
 
 **One-liner:** Zero Trust + isolated AI zone + ABAC/JIT + encrypted DB + Hardened RAG + DP/SHAP + **privacy without friction** (dashboard + USSD/IVR, fast fraud unblock, customer KPIs) + children’s PDPA controls + DPO/Council + in-country default — **no blockchain / no public GenAI with personal data**.
 

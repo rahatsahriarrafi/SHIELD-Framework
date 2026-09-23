@@ -1,8 +1,8 @@
-# SHIELD V5 — Proposed Target Architecture
+# SHIELD — Proposed Target Architecture
 
 > New Telecom Ltd | Robi Data Privacy Avengers | Privacy without friction
 
-This is the master control list (V5). Demos in `/demos` prove the AI technical core; this document covers the full PDPA operating model.
+This is the master control list. Demos in `/demos` prove the AI technical core; this document covers the full PDPA operating model.
 
 ## Architecture
 Zero Trust (ZTNA, microsegmentation, NGFW) · isolated HA AI zone (segmented from billing/subscriber) · mTLS in AI pipeline · AI-zone DR/BCP with fail-closed for critical AI · AI kill switch · VPN as MFA- and posture-protected backup only
