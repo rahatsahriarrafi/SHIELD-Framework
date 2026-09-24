@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
-"""Demo A: Privacy-Preserving & Explainable AI — Differential Privacy + SHAP.
+"""Demo A: Privacy-Preserving & Explainable AI -  Differential Privacy + SHAP.
 SHIELD Framework | New Telecom Ltd / Robi Data Privacy Avengers
 
 Uses objective-perturbation style DP logistic regression (noise on coefficients
-calibrated to ε) for a clear, dependency-stable privacy–utility demo, plus SHAP
+calibrated to ε) for a clear, dependency-stable privacy-utility demo, plus SHAP
 for global and per-customer reason drivers.
 """
 from __future__ import annotations
@@ -117,7 +117,7 @@ def plot_privacy_utility(results, outfile: Path):
     ax.axvline(TARGET_EPS, color="red", linestyle=":", label=f"SHIELD target ε={TARGET_EPS}")
     ax.set_xlabel("Privacy budget ε (lower = stronger privacy)")
     ax.set_ylabel("Accuracy")
-    ax.set_title("SHIELD — Privacy–Utility Trade-off (Differential Privacy)")
+    ax.set_title("SHIELD -  Privacy-Utility Trade-off (Differential Privacy)")
     ax.legend(fontsize=8)
     ax.grid(True, alpha=0.3)
     fig.tight_layout()
@@ -140,7 +140,7 @@ def shap_plots(bundle, feature_names, outfile_global: Path, outfile_local: Path)
 
     plt.figure()
     shap.summary_plot(sv, sample, feature_names=feature_names, show=False)
-    plt.title(f"SHIELD SHAP (global) — {bundle['label']} @ ε={TARGET_EPS}")
+    plt.title(f"SHIELD SHAP (global) -  {bundle['label']} @ ε={TARGET_EPS}")
     plt.tight_layout()
     plt.savefig(outfile_global, dpi=150, bbox_inches="tight")
     plt.close()
@@ -155,7 +155,7 @@ def shap_plots(bundle, feature_names, outfile_global: Path, outfile_local: Path)
     ax.barh([feature_names[i] for i in order][::-1], sv1[order][::-1], color=colors[::-1])
     ax.set_xlabel("SHAP value (impact on risk score)")
     ax.set_title(
-        f"SHIELD per-customer drivers — {bundle['label']} (p={proba[idx]:.2f})"
+        f"SHIELD per-customer drivers -  {bundle['label']} (p={proba[idx]:.2f})"
     )
     fig.tight_layout()
     fig.savefig(outfile_local, dpi=150)
@@ -192,7 +192,7 @@ def main():
     for r in results:
         ax.semilogx(EPSILONS, r["accs"], marker="o", label=r["label"])
     ax.axvline(TARGET_EPS, color="red", linestyle=":", label="ε=1.0 target")
-    ax.set_title("SHIELD — Accuracy vs Privacy Budget (Churn vs Fraud)")
+    ax.set_title("SHIELD -  Accuracy vs Privacy Budget (Churn vs Fraud)")
     ax.set_xlabel("ε")
     ax.set_ylabel("Accuracy")
     ax.legend()
