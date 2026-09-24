@@ -178,7 +178,7 @@ def plot_results(rows: list[dict], outfile: Path):
     ax.set_xticks(x)
     ax.set_xticklabels(labels)
     ax.set_ylim(0, 1.15)
-    ax.set_title("SHIELD Hardened RAG - Test Results (PII · Block · Retrieve)")
+    ax.set_title("SHIELD Hardened RAG - Test Results (PII, Block, Retrieve)")
     ax.legend(fontsize=8)
     ax.grid(True, axis="y", alpha=0.3)
     fig.tight_layout()

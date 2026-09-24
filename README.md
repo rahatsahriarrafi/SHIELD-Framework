@@ -20,17 +20,17 @@ Many AI privacy demos stop at a model notebook. SHIELD also covers children’s 
 
 ```
 SHIELD-Framework/
-├── README.md
-├── requirements.txt
-├── LICENSE
-├── docs/
-│   ├── SHIELD_Architecture.md
-│   └── TeamNullX_ConceptPaper.pdf
-├── demos/
-│   ├── demo_a_dp_shap.py
-│   └── demo_b_hardened_rag.py
-├── notebooks/
-└── images/
+  README.md
+  requirements.txt
+  LICENSE
+  docs/
+    SHIELD_Architecture.md
+    Team_NullX_ConceptPaper.pdf
+  demos/
+    demo_a_dp_shap.py
+    demo_b_hardened_rag.py
+  notebooks/
+  images/
 ```
 
 ## Quick start
@@ -125,7 +125,7 @@ In short, SHIELD combines Zero Trust networking, an isolated AI zone, purpose-bo
 
 ## Competition artifact
 
-Concept paper (one A4 page): [docs/TeamNullX_ConceptPaper.pdf](docs/TeamNullX_ConceptPaper.pdf)
+Concept paper (one A4 page): [docs/Team_NullX_ConceptPaper.pdf](docs/Team_NullX_ConceptPaper.pdf)
 
 ## Research and standards (selected)
 
@@ -139,7 +139,7 @@ Concept paper (one A4 page): [docs/TeamNullX_ConceptPaper.pdf](docs/TeamNullX_Co
 
 ## Team
 
-Built for the Robi Data Privacy Avengers competition (New Telecom Ltd case).  
+Built for the Robi Data Privacy Avengers competition (New Telecom Ltd case) by Team NullX.
 Framework name: SHIELD. Guiding idea: privacy without friction.
 
 ## License
