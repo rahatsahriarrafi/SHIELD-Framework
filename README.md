@@ -1,31 +1,20 @@
 # SHIELD Framework
-### Secure · Hardened · Integrity · Explainable · Lawful · Defended
 
-**New Telecom Ltd Case Study | Robi Data Privacy Avengers Competition**
+Secure, Hardened, Integrity, Explainable, Lawful, Defended
 
-> **SHIELD** is a full-stack **privacy-without-friction** framework for telecom AI under Bangladesh **PDPA 2026**.  
-> It combines **executive-ready governance** with **runnable technical demos**—going beyond demo-only notebooks *and* beyond policy-only essays.
+New Telecom Ltd case study for the Robi Data Privacy Avengers competition.
 
-| Layer | What SHIELD delivers |
-|---|---|
-| **Strategy** | 1-page concept paper + proposed target architecture (children, customer trust, DPO, third parties) |
-| **Demo A** | Differential Privacy + SHAP for churn & fraud (ε≈1.0 operating point + customer reason drivers) |
-| **Demo B** | Hardened RAG support assistant: BD PII redaction → behaviour+pattern defence → anomaly guard → retrieve / human review |
+SHIELD is a practical framework for adopting telecom AI under Bangladesh’s Personal Data Protection Act, 2026. The idea is simple: protect people strongly, keep the experience easy (privacy without friction), and prove the technical pieces with runnable demos.
 
----
+What you will find here:
 
-## Why SHIELD (vs a demo-only pack)
+- A one-page concept paper and a full proposed architecture
+- Demo A: differential privacy and SHAP for churn and fraud style models
+- Demo B: a hardened customer-support retrieval assistant with Bangladesh-aware PII checks
 
-| Gap in typical AI demos | SHIELD answer |
-|---|---|
-| No children’s PDPA controls | Age assurance; if uncertain → no profiling; suppress under-18s in marketing/churn |
-| Explainability only for data scientists | SHAP **plus** customer reason codes, appeal, fast fraud unblock |
-| Regex-only prompt filters | Behaviour score + patterns + rate/anomaly guard + human handoff |
-| No inclusion | Privacy dashboard **and** USSD/IVR/SMS/retail |
-| No accountability story | Independent DPO (veto) + AI & Privacy Council + RACI |
-| No Bangladesh localisation | NID, +880/01X phone, Bangla-aware customer channels |
+## What SHIELD adds beyond a demo alone
 
----
+Many AI privacy demos stop at a model notebook. SHIELD also covers children’s PDPA rules, customer reason codes and appeals, inclusive channels such as USSD and IVR, Bangladesh identifier formats, and clear accountability through a data protection officer and an AI and Privacy Council.
 
 ## Repository structure
 
@@ -36,15 +25,13 @@ SHIELD-Framework/
 ├── LICENSE
 ├── docs/
 │   ├── SHIELD_Architecture.md
-│   └── TeamNullX_ConceptPaper.pdf      # competition 1-pager (rename team if needed)
+│   └── TeamNullX_ConceptPaper.pdf
 ├── demos/
-│   ├── demo_a_dp_shap.py               # DP privacy–utility + SHAP
-│   └── demo_b_hardened_rag.py          # Hardened RAG pipeline
-├── notebooks/                          # optional Jupyter wrappers
-└── images/                             # generated plots
+│   ├── demo_a_dp_shap.py
+│   └── demo_b_hardened_rag.py
+├── notebooks/
+└── images/
 ```
-
----
 
 ## Quick start
 
@@ -53,129 +40,108 @@ python3 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
 
-# Demo A — Differential Privacy + SHAP
 python demos/demo_a_dp_shap.py
-
-# Demo B — Hardened RAG
 python demos/demo_b_hardened_rag.py
 ```
 
 Plots are written to `images/`.
 
----
+## Demo A: Privacy-preserving and explainable AI
 
-## Demo A — Privacy-preserving & explainable AI
+This demo asks two questions. First, can we train on customer-like data without memorising individuals? We use a differential privacy style budget for that. Second, can we explain a high-risk decision? We use SHAP for specialists and plain reason codes for customers.
 
-**Questions answered**
+Method: compare a normal logistic regression baseline with an epsilon-calibrated private variant across epsilon values from 0.1 to 50. SHIELD’s working target is about epsilon = 1.0. In production you would swap in a full DP-SGD stack where needed.
 
-1. Can we train on customer-like data **without memorising individuals?** → **Differential Privacy** (ε budget).  
-2. Can we explain a high-risk decision to a customer/regulator? → **SHAP** + plain-language **reason codes**.
+### Results
 
-**Method:** baseline logistic regression vs ε-calibrated DP-style logistic regression (objective-perturbation / coefficient noise demo) across ε ∈ {0.1 … 50}; SHIELD production target **ε ≈ 1.0**. Swap in production DP-SGD / `diffprivlib` when deploying.
+Privacy and utility trade-off (lower epsilon means stronger privacy; the red line is the SHIELD target near 1.0):
 
-**Results**
+![Privacy utility trade-off](images/shield_privacy_utility.png)
 
-Privacy–utility trade-off (lower ε = stronger privacy; red line = SHIELD target ε≈1.0):
-
-![Privacy–utility trade-off](images/shield_privacy_utility.png)
-
-Churn vs fraud accuracy across privacy budgets:
+Churn versus fraud accuracy across privacy budgets:
 
 ![Accuracy comparison](images/shield_comparison_accuracy.png)
 
-SHAP global drivers — churn:
+SHAP global drivers for churn:
 
 ![SHAP churn global](images/shield_shap_churn_global.png)
 
-SHAP per-customer reason drivers — churn (feeds customer reason codes / appeals):
+SHAP per-customer drivers for churn (useful for reason codes and appeals):
 
 ![SHAP churn customer](images/shield_shap_churn_customer.png)
 
-SHAP global drivers — fraud:
+SHAP global drivers for fraud:
 
 ![SHAP fraud global](images/shield_shap_fraud_global.png)
 
-SHAP per-customer reason drivers — fraud:
+SHAP per-customer drivers for fraud:
 
 ![SHAP fraud customer](images/shield_shap_fraud_customer.png)
 
-> Datasets: synthetic telco/fraud-style data by default (always runs). Drop CSVs into `data/` to use your own.
+By default the demos use synthetic telco and fraud style data so they always run. You can drop your own CSV files into `data/` if you want.
 
----
+## Demo B: Hardened RAG customer support
 
-## Demo B — Hardened RAG customer support
+Every query goes through a short pipeline before it can touch the knowledge base:
 
-```
-User query
-   → 1. PII redaction (BD NID / phone / name hints)
-   → 2. Behaviour score + injection pattern filter
-   → 3. Rate / exfiltration anomaly guard
-   → 4. Retrieve from approved KB  OR  BLOCK + human review
-```
+1. Redact Bangladesh-style PII such as NID and phone numbers  
+2. Check behaviour and known injection patterns  
+3. Apply a rate and exfiltration anomaly guard  
+4. Retrieve an answer, or block and send the case to human review  
 
-**Upgrades vs keyword-only filters:** behaviour heuristics, session anomaly signals, explicit **human handoff** messaging (dial 121 / “agent”), PDPA-aware KB snippets (marketing opt-out, children’s rule, appeal path).
+This is stronger than keyword-only filters. It also tells the customer how to reach a human agent and includes PDPA-aware answers on opt-out, children’s rules, and appeals.
 
-**Pipeline**
+### Pipeline
 
 ![SHIELD Hardened RAG pipeline](images/shield_pipeline.png)
 
-**PII redaction (BD NID / phone)**
+### PII redaction (BD NID and phone)
 
-![PII redaction before/after](images/shield_pii_redaction.png)
+![PII redaction before and after](images/shield_pii_redaction.png)
 
-**Test results** — legitimate answers vs injection/anomaly blocks:
+### Test results
+
+Legitimate answers versus injection or anomaly blocks:
 
 ![RAG test results](images/shield_rag_test_results.png)
----
 
-## OWASP LLM Top 10 & ATLAS alignment (priority)
+## OWASP LLM and ATLAS alignment
 
 | Risk | ID | SHIELD control | Demo |
 |---|---|---|---|
-| Prompt Injection | LLM01 | Behaviour + patterns + anomaly guard + human review | B |
-| Sensitive Disclosure | LLM02 | BD-localised PII redaction before retrieve/log | B |
-| Training-data leakage | — | Differential Privacy (ε policy) | A |
-| Opaque / unfair decisions | — | SHAP + reason codes + appeal path (architecture) | A + docs |
-| Supply chain | — | AIBOM / signed models / no-train-on-our-data (architecture) | docs |
+| Prompt injection | LLM01 | Behaviour and pattern checks, anomaly guard, human review | B |
+| Sensitive disclosure | LLM02 | Bangladesh-localised PII redaction before retrieve or log | B |
+| Training-data leakage | - | Differential privacy budget | A |
+| Opaque or unfair decisions | - | SHAP, reason codes, appeal path | A and docs |
+| Supply chain | - | Model inventory, signed artefacts, no training on our data | docs |
 
-Also referenced in architecture: **MITRE ATLAS** adversarial ML testing alongside classical VAPT + AI red team.
+The architecture also points to MITRE ATLAS style adversarial testing alongside normal VAPT and AI red teaming.
 
----
+## Proposed target architecture
 
-## SHIELD — Proposed target architecture (summary)
+Full detail: [docs/SHIELD_Architecture.md](docs/SHIELD_Architecture.md)
 
-Full detail: [`docs/SHIELD_Architecture.md`](docs/SHIELD_Architecture.md)
-
-**One-liner:** Zero Trust + isolated AI zone + ABAC/JIT + encrypted DB + Hardened RAG + DP/SHAP + **privacy without friction** (dashboard + USSD/IVR, fast fraud unblock, customer KPIs) + children’s PDPA controls + DPO/Council + in-country default — **no blockchain / no public GenAI with personal data**.
-
----
+In short, SHIELD combines Zero Trust networking, an isolated AI zone, purpose-bound access, encrypted data stores, hardened RAG, differential privacy and SHAP, customer-friendly recourse (including USSD and IVR), children’s PDPA controls, and governance with an independent data protection officer. We do not use blockchain for personal data, and we do not send live personal data into public generative AI tools.
 
 ## Competition artifact
 
-- Concept paper (1 A4): `docs/TeamNullX_ConceptPaper.pdf`  
-- Rename to `YourTeamName_ConceptPaper.pdf` before form upload.
+Concept paper (one A4 page): [docs/TeamNullX_ConceptPaper.pdf](docs/TeamNullX_ConceptPaper.pdf)
 
----
+## Research and standards (selected)
 
-## Research & standards (selected)
-
-1. Abadi et al. (2016) — Deep Learning with Differential Privacy (ACM CCS).  
-2. Lundberg & Lee (2017) — SHAP (NeurIPS).  
-3. Greshake et al. (2023) — Prompt injection (AISec@CCS).  
-4. Chen et al. (2025) — StruQ structured queries (USENIX Security) — *roadmap*.  
-5. OWASP Top 10 for LLM Applications (2025).  
-6. ISO/IEC 42001 (AI MS) & ISO/IEC 27701 (privacy MS) — *alignment targets*.  
+1. Abadi et al. (2016). Deep Learning with Differential Privacy. ACM CCS.  
+2. Lundberg and Lee (2017). A Unified Approach to Interpreting Model Predictions. NeurIPS.  
+3. Greshake et al. (2023). Prompt injection against LLM-integrated applications. AISec at CCS.  
+4. Chen et al. (2025). StruQ structured queries against prompt injection. USENIX Security (roadmap item).  
+5. OWASP Top 10 for Large Language Model Applications (2025).  
+6. ISO/IEC 42001 and ISO/IEC 27701 as alignment targets.  
 7. Bangladesh Personal Data Protection Act, 2026 (PDPA).
-
----
 
 ## Team
 
-Built for **Robi Data Privacy Avengers** — New Telecom Ltd case.  
-Framework name: **SHIELD**. Tagline: **Privacy without friction.**
-
----
+Built for the Robi Data Privacy Avengers competition (New Telecom Ltd case).  
+Framework name: SHIELD. Guiding idea: privacy without friction.
 
 ## License
 
-MIT — see `LICENSE`.
+MIT. See `LICENSE`.
